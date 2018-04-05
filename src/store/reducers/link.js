@@ -1,7 +1,7 @@
 // @flow
 import type {Action} from '../actions/type';
 
-// store ordered list of ids when order matters, 
+// store ordered list of ids when order matters,
 // otherwise, store unordered objects for O(1) access
 const initialState = {
   byId: {},
@@ -17,7 +17,7 @@ export default function(state: State = initialState, action: Action): State {
       return {
         byId: {
           ...state.byId,
-          [payload.id]: payload 
+          [payload.id]: payload
         },
         allIds: [...state.allIds, payload.id]
       };

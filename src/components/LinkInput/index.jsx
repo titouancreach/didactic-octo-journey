@@ -28,17 +28,22 @@ class LinkInput extends React.Component<Props, State> {
     this.setState({
       input: event.target.value
     });
-  }
-
+  };
 
   render() {
-
     const {addLink} = this.props;
 
     return (
       <React.Fragment>
         <Grid item xs={11}>
-          <TextField id="link" label="url" margin="none" fullWidth value={this.state.input} onChange={this.handleChange}/>
+          <TextField
+            id="link"
+            label="url"
+            margin="none"
+            fullWidth
+            value={this.state.input}
+            onChange={this.handleChange}
+          />
         </Grid>
         <Grid item xs={1}>
           <Button

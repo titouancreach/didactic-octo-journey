@@ -26,7 +26,10 @@ function BookmarkList({bookmarkIds}: Props) {
             {bookmarkIds.map(bookmarkId => (
               <TableRow key={bookmarkId}>
                 <TableCell>
-                  <ListItem> <ListItemText primary={bookmarkId} secondary="titouan" /></ListItem>
+                  <ListItem>
+                    {' '}
+                    <ListItemText primary={bookmarkId} secondary="titouan" />
+                  </ListItem>
                 </TableCell>
               </TableRow>
             ))}
