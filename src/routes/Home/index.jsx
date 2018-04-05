@@ -5,7 +5,7 @@ import Grid from 'material-ui/Grid';
 import {withStyles} from 'material-ui/styles';
 import LinkInput from '../../components/LinkInput/index';
 
-type Props = {};
+
 
 const style = {
   root: {
@@ -13,7 +13,11 @@ const style = {
   }
 }
 
-function Home({classes}) {
+type Props = {
+  classes: typeof style
+};
+
+function Home({classes}: Props) {
   return (
     <div className={classes.root}>
       <Grid container>

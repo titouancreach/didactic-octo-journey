@@ -6,21 +6,15 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
-type styleProps = {
-  root: {
-    flexGrow: number
-  }
-};
-
-type Props = {
-  classes: styleProps,
-  title: string
-};
-
 const styles = {
   root: {
     flexGrow: 1
   }
+};
+
+type Props = {
+  classes: typeof styles,
+  title: string
 };
 
 function TopBar({classes, title}: Props) {
