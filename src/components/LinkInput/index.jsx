@@ -31,7 +31,7 @@ function LinkInput({addLink}: Props) {
 }
 
 const mapDispatch = (dispatch) => ({
-  addLink: url => dispatch(addLink(url, "Flickr"))
+  addLink: url => dispatch(addLink(url))
 });
 
 export default connect(null, mapDispatch)(LinkInput);

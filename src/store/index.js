@@ -1,8 +1,10 @@
-import {createStore} from 'redux';
+import {createStore, compose} from 'redux';
+import {install} from 'redux-loop';
 
 import link from './reducers/link';
 
-export default createStore(
-  link,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const enhancer = composeEnhancers(install());
+
+export default createStore(link, enhancer);
