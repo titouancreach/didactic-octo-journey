@@ -3,16 +3,20 @@
 import * as React from 'react';
 import Home from './routes/Home';
 import AppBar from './components/AppBar/index';
+import {Provider} from 'react-redux';
+import store from './store';
 
 class App extends React.Component<{}> {
   render() {
     return (
-      <div>
-        <AppBar title="Bookmark" />
+      <Provider store={store}>
         <div>
-          <Home />
+          <AppBar title="Bookmark" />
+          <div>
+            <Home />
+          </div>
         </div>
-      </div>
+      </Provider>
     );
   }
 }

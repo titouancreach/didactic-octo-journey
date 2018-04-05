@@ -5,16 +5,24 @@ import TextField from 'material-ui/TextField';
 import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
-import AddIcon from 'material-ui-icons/Add'
+import AddIcon from 'material-ui-icons/Add';
 
-function LinkInput() {
+import {addLink} from '../../store/actions/link';
+
+import {connect} from 'react-redux';
+
+type Props = {
+  addLink: Function
+}
+
+function LinkInput({addLink}: Props) {
   return (
     <React.Fragment>
       <Grid item xs={11}>
-        <TextField id="name" label="Name" margin="none" fullWidth/>
+        <TextField id="name" label="Name" margin="none" fullWidth />
       </Grid>
       <Grid item xs={1}>
-      <Button variant="fab" mini color="secondary" aria-label="add">
+        <Button variant="fab" mini color="secondary" aria-label="add" onClick={() => addLink('Hello world')}>
           <AddIcon />
         </Button>
       </Grid>
@@ -22,4 +30,8 @@ function LinkInput() {
   );
 }
 
-export default LinkInput;
+const mapDispatch = (dispatch) => ({
+  addLink: url => dispatch(addLink(url, "Flickr"))
+});
+
+export default connect(null, mapDispatch)(LinkInput);

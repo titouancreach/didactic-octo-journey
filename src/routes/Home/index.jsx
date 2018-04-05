@@ -1,17 +1,15 @@
 // @flow
 
-import React from 'react'; 
+import React from 'react';
 import Grid from 'material-ui/Grid';
 import {withStyles} from 'material-ui/styles';
 import LinkInput from '../../components/LinkInput/index';
-
-
 
 const style = {
   root: {
     margin: 64
   }
-}
+};
 
 type Props = {
   classes: typeof style
