@@ -10,9 +10,9 @@ class App extends React.Component<{}> {
     return (
       <div className="App">
         <AppBar title="Bookmark" />
-        <p className="App-intro">
+        <div>
           <Home />
-        </p>
+        </div>
       </div>
     );
   }
