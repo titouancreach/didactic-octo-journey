@@ -13,24 +13,50 @@ import {connect} from 'react-redux';
 
 type Props = {
   addLink: Function
+};
+
+type State = {
+  input: string
+};
+
+class LinkInput extends React.Component<Props, State> {
+  state = {
+    input: ''
+  };
+
+  handleChange = event => {
+    this.setState({
+      input: event.target.value
+    });
+  }
+
+
+  render() {
+
+    const {addLink} = this.props;
+
+    return (
+      <React.Fragment>
+        <Grid item xs={11}>
+          <TextField id="link" label="url" margin="none" fullWidth value={this.state.input} onChange={this.handleChange}/>
+        </Grid>
+        <Grid item xs={1}>
+          <Button
+            variant="fab"
+            mini
+            color="secondary"
+            aria-label="add"
+            onClick={() => addLink(this.state.input)}
+          >
+            <AddIcon />
+          </Button>
+        </Grid>
+      </React.Fragment>
+    );
+  }
 }
 
-function LinkInput({addLink}: Props) {
-  return (
-    <React.Fragment>
-      <Grid item xs={11}>
-        <TextField id="name" label="Name" margin="none" fullWidth />
-      </Grid>
-      <Grid item xs={1}>
-        <Button variant="fab" mini color="secondary" aria-label="add" onClick={() => addLink('Hello world')}>
-          <AddIcon />
-        </Button>
-      </Grid>
-    </React.Fragment>
-  );
-}
-
-const mapDispatch = (dispatch) => ({
+const mapDispatch = dispatch => ({
   addLink: url => dispatch(addLink(url))
 });
 
