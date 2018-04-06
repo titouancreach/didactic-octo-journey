@@ -7,12 +7,13 @@ import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 
-import {addLink} from '../../store/actions/link';
+import {fetchLink} from '../../store/actions/link';
 
 import {connect} from 'react-redux';
 
 type Props = {
-  addLink: Function
+  addLink: Function,
+  isLoading: boolean
 };
 
 type State = {
@@ -47,6 +48,7 @@ class LinkInput extends React.Component<Props, State> {
         </Grid>
         <Grid item xs={1}>
           <Button
+            disabled={this.props.isLoading}
             variant="fab"
             mini
             color="secondary"
@@ -62,7 +64,11 @@ class LinkInput extends React.Component<Props, State> {
 }
 
 const mapDispatch = dispatch => ({
-  addLink: url => dispatch(addLink(url))
+  addLink: url => dispatch(fetchLink(url))
 });
 
-export default connect(null, mapDispatch)(LinkInput);
+const mapState = state => ({
+  isLoading: state.loading.isLoading
+});
+
+export default connect(mapState, mapDispatch)(LinkInput);

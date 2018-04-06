@@ -1,27 +1,42 @@
 // @flow
 
 import {getUniqId} from '../../helpers';
+import {get} from '../../services/flickr';
 
 type UrlType = string;
 type IdType = string;
 
-type AddLinkAction = {
+type FetchLinkAction = {
   payload: {
-    url: UrlType,
-    id: IdType
+    url: UrlType
   },
   type: string
 };
 
-export type Actions = AddLinkAction;
+type AddLinkAction = Object;
 
-export function addLink(url: UrlType): AddLinkAction {
-  const id = getUniqId();
-  return {
-    payload: {
-      url,
-      id
-    },
-    type: 'ADD_LINK'
+export type Actions = AddLinkAction | FetchLinkAction;
+
+export function fetchLink(url: UrlType): Function {
+  return dispatch => {
+    const id = getUniqId();
+    dispatch({type: 'FETCH_LINK'});
+    get(url).fold(
+      prom =>
+        prom.then(result =>
+          result.fold(
+            obj =>
+              dispatch({
+                type: 'ADD_LINK',
+                payload: {
+                  ...obj,
+                  id
+                }
+              }),
+            err => dispatch({type: 'LINK_NOT_FETCHED', payload: err})
+          )
+        ),
+      err => dispatch({type: 'LINK_NOT_FETCHED', payload: err})
+    );
   };
 }

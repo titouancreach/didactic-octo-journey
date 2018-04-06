@@ -87,6 +87,7 @@ const sizeToBookmarkSize = json => {
   if (json && json.stat === 'fail' && json.message) {
     return Error(json.message);
   }
+  console.log(json);
   if (!json || !json.sizes) {
     return Error("The response doesn't match our requirement");
   }
