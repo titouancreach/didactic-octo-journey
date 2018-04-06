@@ -4,7 +4,6 @@ import {getUniqId} from '../../helpers';
 import {get} from '../../services/flickr';
 
 type UrlType = string;
-type IdType = string;
 
 type FetchLinkAction = {
   payload: {
