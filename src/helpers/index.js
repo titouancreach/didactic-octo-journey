@@ -33,12 +33,15 @@ export const Success = value => {
     },
     // if we concat 2 success, we return Success([a, b]) else we return the Error(b)
     concat(m) {
-      return m.fold(x => {
-        if (Array.isArray(value)) {
-          return Success(value.concat(x))
-        }
-        return Success([value, x])
-      }, err => Error(err));
+      return m.fold(
+        x => {
+          if (Array.isArray(value)) {
+            return Success(value.concat(x));
+          }
+          return Success([value, x]);
+        },
+        err => Error(err)
+      );
     }
   };
 };
@@ -65,12 +68,15 @@ export const Error = error => {
     },
     // if we concat 2 Error, we return Error([a, b]) else, we return Error(a)
     concat(m) {
-      return m.fold(() => Error(error), err => {
-        if (Array.isArray(error)) {
-          return Error(error.concat(err))
+      return m.fold(
+        () => Error(error),
+        err => {
+          if (Array.isArray(error)) {
+            return Error(error.concat(err));
+          }
+          return Error([error, err]);
         }
-        return Error([error, err])
-      });
+      );
     }
   };
 };

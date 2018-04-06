@@ -52,10 +52,16 @@ const urlToId = url =>
 // Transform raw flickr json to our info
 const infoToBookmarkInfo = json => {
   if (json && json.stat === 'fail' && json.message) {
-    return Error(json.message)
+    return Error(json.message);
   }
-  if (!json || !json.photo || !json.photo.owner || !json.photo.dates || !json.photo.title) {
-    return Error('The response doesn\'t match our requirement');
+  if (
+    !json ||
+    !json.photo ||
+    !json.photo.owner ||
+    !json.photo.dates ||
+    !json.photo.title
+  ) {
+    return Error("The response doesn't match our requirement");
   }
   const {
     photo: {
@@ -79,10 +85,10 @@ const infoToBookmarkInfo = json => {
 // Transform raw flickr size to our sizes
 const sizeToBookmarkSize = json => {
   if (json && json.stat === 'fail' && json.message) {
-    return Error(json.message)
+    return Error(json.message);
   }
   if (!json || !json.sizes) {
-    return Error('The response doesn\'t match our requirement');
+    return Error("The response doesn't match our requirement");
   }
   const {sizes: {size}} = json;
   if (!size) {
@@ -113,11 +119,14 @@ export const get = url => {
     return Promise.all([fetchInfo(apiKey, id), fetchSize(apiKey, id)]).then(
       ([rawInfo, rawSizes]) => {
         return rawInfo.concat(rawSizes).flatMap(([info, size]) => {
-          return Success(url).concat(infoToBookmarkInfo(info)).concat(sizeToBookmarkSize(size)).map(([url, info, size]) => ({
-            url,
-            ...info,
-            ...size
-          }));
+          return Success(url)
+            .concat(infoToBookmarkInfo(info))
+            .concat(sizeToBookmarkSize(size))
+            .map(([url, info, size]) => ({
+              url,
+              ...info,
+              ...size
+            }));
         });
       }
     );
