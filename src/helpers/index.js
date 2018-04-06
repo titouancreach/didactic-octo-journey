@@ -32,6 +32,8 @@ export const Success = value => {
       return f(value);
     },
     // if we concat 2 success, we return Success([a, b]) else we return the Error(b)
+    // I'm not very fan of polymorphism with the Array here. But I'm not very fan
+    // of destructuring an array every time for map and flatMap...
     concat(m) {
       return m.fold(
         x => {
