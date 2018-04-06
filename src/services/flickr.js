@@ -53,9 +53,7 @@ const infoToBookmarkInfo = json => {
 
 // Transform raw flickr size to our sizes
 const sizeToBookmarkSize = json => {
-  const {sizes: {
-    size
-  }} = json;
+  const {sizes: {size}} = json;
   const {width, height} = size.find(({label}) => label === 'Original');
   return {
     width,
@@ -65,13 +63,14 @@ const sizeToBookmarkSize = json => {
 
 export const get = url => {
   const photoId = urlToId(url);
-  return Promise.all([fetchInfo(apiKey, photoId), fetchSize(apiKey, photoId)]).then(
-    ([rawInfo, rawSizes]) => {
-      return {
-        url,
-        ...sizeToBookmarkSize(rawSizes),
-        ...infoToBookmarkInfo(rawInfo)
-      };
-    }
-  );
+  return Promise.all([
+    fetchInfo(apiKey, photoId),
+    fetchSize(apiKey, photoId)
+  ]).then(([rawInfo, rawSizes]) => {
+    return {
+      url,
+      ...sizeToBookmarkSize(rawSizes),
+      ...infoToBookmarkInfo(rawInfo)
+    };
+  });
 };

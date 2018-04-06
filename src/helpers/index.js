@@ -8,12 +8,11 @@ export const getUniqId = () =>
     .toString(36)
     .substr(2, 9);
 
-
 // Simple Error/Success monad
-export const Success = (value) => {
+export const Success = value => {
   return {
     map(f) {
-      return Success(f(value))
+      return Success(f(value));
     },
     flatMap(f) {
       return f(value);
@@ -25,18 +24,18 @@ export const Success = (value) => {
       return !this.isSuccess();
     },
     getValue() {
-      return value
+      return value;
     },
-    fold(f/*, g*/) {
-      return f(value)
+    fold(f /*, g*/) {
+      return f(value);
     }
-  }
+  };
 };
 
 export const Error = error => {
   return {
     map() {
-      return Error(error)
+      return Error(error);
     },
     flatMap() {
       return Error(error);
@@ -45,16 +44,15 @@ export const Error = error => {
       return false;
     },
     isError() {
-      return !this.isSuccess()
+      return !this.isSuccess();
     },
     getError() {
       return error;
     },
     fold(f, g) {
-      return g(error)
+      return g(error);
     }
-  }
+  };
 };
-
 
 export type Either = Error | Success;
