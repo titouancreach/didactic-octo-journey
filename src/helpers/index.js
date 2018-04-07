@@ -16,8 +16,8 @@ export const getUniqId = () =>
 export type Either<T, U> = SuccessType<T, U> | ErrorType<T, U>;
 
 export type SuccessType<T, U> = {
-  map: (Function) => SuccessType<T, U>,
-  flatMap: (Function) => Either<T, U>,
+  map: (<X>(T) => X) => SuccessType<T, U>,
+  flatMap: <X>((T) => Either<X, U>) => Either<X, U>,
   isSuccess: () => boolean,
   isError: () => boolean,
   getValue: () => T,
@@ -26,7 +26,7 @@ export type SuccessType<T, U> = {
 }
 
 export type ErrorType<T, U> = {
-  map: (Function) => ErrorType<T, U>,
+  map: (<X>(T) => X) => ErrorType<T, U>,
   flatMap: (Function) => ErrorType<T, U>,
   isSuccess: () => boolean,
   isError: () => boolean,
@@ -41,7 +41,7 @@ export const Success = <T, U>(value: T): SuccessType<T, U> => {
     map(f) {
       return Success(f(value));
     },
-    flatMap(f) {
+    flatMap(f: Function) {
       return f(value);
     },
     isSuccess() {

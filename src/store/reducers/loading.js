@@ -1,14 +1,17 @@
 // @flow
 import type {Action} from '../actions/type';
+import type {LinkNotFetchedAction} from '../actions/link';
 
-// store ordered list of ids when order matters,
-// otherwise, store unordered objects for O(1) access
+
 const initialState = {
   isLoading: false,
   error: null
 };
 
-type State = typeof initialState;
+type State = {
+  error: ?string,
+  isLoading: boolean
+};
 
 export default function(state: State = initialState, action: Action): State {
   switch (action.type) {
@@ -27,10 +30,11 @@ export default function(state: State = initialState, action: Action): State {
       };
     }
     case 'LINK_NOT_FETCHED': {
+      const {payload} = ((action: any): LinkNotFetchedAction) 
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+        error: payload
       };
     }
   }

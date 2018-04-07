@@ -12,6 +12,8 @@ import Table, {
 } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 import {connect} from 'react-redux';
+import BookmarkItem from './BookmarkItem';
+
 
 type Props = {
   bookmarkIds: string[]
@@ -27,8 +29,7 @@ function BookmarkList({bookmarkIds}: Props) {
               <TableRow key={bookmarkId}>
                 <TableCell>
                   <ListItem>
-                    {' '}
-                    <ListItemText primary={bookmarkId} secondary="titouan" />
+                    <BookmarkItem bookmarkId={bookmarkId} />
                   </ListItem>
                 </TableCell>
               </TableRow>

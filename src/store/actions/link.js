@@ -2,19 +2,30 @@
 
 import {getUniqId} from '../../helpers';
 import {get} from '../../services/flickr';
+import type {Bookmark} from '../../type';
 
 type UrlType = string;
 
-type FetchLinkAction = {
+export type FetchLinkAction = {|
   payload: {
     url: UrlType
   },
   type: string
-};
+|};
 
-type AddLinkAction = Object;
+type AddLinkActionPayload = Bookmark & {id: string};
 
-export type Actions = AddLinkAction | FetchLinkAction;
+export type AddLinkAction = {|
+  payload: AddLinkActionPayload,
+  type: string
+|};
+
+export type LinkNotFetchedAction = {|
+  payload: string,
+  type: string
+|};
+
+export type Actions = AddLinkAction | FetchLinkAction | LinkNotFetchedAction;
 
 export function fetchLink(url: UrlType): Function {
   return dispatch => {
