@@ -12,7 +12,7 @@ const fetchInfo = videoId => {
   return axios
     .get(`http://vimeo.com/api/v2/video/${videoId}.json`)
     .then(resp => Success(resp.data))
-    .catch(error => Error(error));
+    .catch(error => Error('Network error, the request as failed, make sure your link is valid'));
 };
 
 const urlToId = url => {
