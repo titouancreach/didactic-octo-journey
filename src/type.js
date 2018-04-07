@@ -1,6 +1,6 @@
 // @flow
 
-export type Bookmark {
+export type Bookmark = {
   url: string,
   title: string,
   authorName: string,
@@ -8,7 +8,7 @@ export type Bookmark {
   tags: [string]
 };
 
-export type FlikrBookmark = Bookmark & {
+export type FlickrBookmark = Bookmark & {
   width: string,
   height: string
 }

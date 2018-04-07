@@ -18,7 +18,7 @@ import {withRouter} from 'react-router-dom';
 import {deleteLink} from '../../store/actions/link';
 
 const unixTimestampToString = timestamp => {
-  const d = new Date(timestamp * 1000);
+  const d = new Date(parseInt(timestamp, 10) * 1000);
   return [d.getDate(), d.getMonth(), d.getFullYear()].join('/');
 };
 
