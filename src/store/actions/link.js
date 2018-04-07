@@ -105,6 +105,6 @@ export function fetchLink(url: UrlType): Function {
           ),
         err => dispatch({type: 'LINK_NOT_FETCHED', payload: err})
       )
-    );
-  };
+    ).fold(() => {}, err => dispatch({type: 'LINK_NOT_FETCHED', payload: err}))
+  }
 }
