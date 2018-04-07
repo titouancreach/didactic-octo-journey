@@ -28,7 +28,20 @@ export type LinkNotFetchedAction = {|
 export type Actions = AddLinkAction | FetchLinkAction | LinkNotFetchedAction;
 
 export function fetchLink(url: UrlType): Function {
-  return dispatch => {
+  return (dispatch, getState) => {
+
+    // check for already existing bookmark.
+    // we assume that 2 links are the same if their URL are equals
+    const state = getState();
+    const bookmarks = state.link.allIds.map(id => state.link.byId[id]);
+    const bookmark = bookmarks.find(link => link.url === url);
+    if (bookmark) {
+      dispatch({type: 'DUPLICATE_LINK', payload: {
+        id: bookmark.id
+      }});
+      return;
+    }
+
     const id = getUniqId();
     dispatch({type: 'FETCH_LINK'});
     get(url).fold(
