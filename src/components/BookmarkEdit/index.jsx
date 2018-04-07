@@ -34,11 +34,10 @@ const enhanceAddTag = tags => {
 };
 
 function BookmarkEdit({bookmark, addTag, removeTag, history}: Props) {
-
   return (
     <React.Fragment>
       <Grid item xs={12}>
-      <Typography variant="display2">Edit</Typography>
+        <Typography variant="display2">Edit</Typography>
       </Grid>
       <BookmarkInfo bookmark={bookmark} />
       <Grid item xs={12}>

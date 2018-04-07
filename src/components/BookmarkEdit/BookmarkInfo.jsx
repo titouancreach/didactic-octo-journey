@@ -6,8 +6,8 @@ import type {Bookmark} from '../../type';
 
 type Props = {
   bookmark: Bookmark
-}
+};
 
 export default ({bookmark}: Bookmark) => {
-  return <FlickrInfo bookmark={bookmark} />
+  return <FlickrInfo bookmark={bookmark} />;
 };

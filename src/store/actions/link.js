@@ -50,7 +50,6 @@ export type Actions =
  | AddTagAction 
  | RemoveTagAction;
 
-
 export function deleteLink(id: string) {
   return {type: 'DELETE_LINK', payload: {id}}
 };
@@ -68,6 +67,7 @@ export function fetchLink(url: UrlType): Function {
 
     // check for already existing bookmark.
     // we assume that 2 links are the same if their URL are equals
+    // That's not 100% true because we don't really care about URL, we just extract the Id to call the API.
     const state = getState();
     const bookmarks = state.link.allIds.map(id => state.link.byId[id]);
     const bookmark = bookmarks.find(link => link.url === url);

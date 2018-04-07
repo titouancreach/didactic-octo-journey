@@ -37,6 +37,13 @@ export default function(state: State = initialState, action: Action): State {
         error: payload
       };
     }
+    case 'DUPLICATE_LINK': {
+      return {
+        ...state,
+        isLoading: false,
+        error: 'Link is already there'
+      }
+    }
   }
   return state;
 }
