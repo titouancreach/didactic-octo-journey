@@ -125,7 +125,8 @@ export const get = url => {
               .join(infoToBookmarkInfo(info), (url, info) => ({url, ...info}))
               .join(sizeToBookmarkSize(size), (acc, size) => ({
                 ...acc,
-                ...size
+                ...size,
+                type: 'flickr'
               }))
           );
       }

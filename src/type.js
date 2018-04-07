@@ -1,11 +1,14 @@
 // @flow
 
+type LinkType = 'flickr' | 'vimeo';
+
 export type Bookmark = {
   url: string,
   title: string,
   authorName: string,
   addedDate: string,
-  tags: [string]
+  tags: [string],
+  type: LinkType
 };
 
 export type FlickrBookmark = Bookmark & {
