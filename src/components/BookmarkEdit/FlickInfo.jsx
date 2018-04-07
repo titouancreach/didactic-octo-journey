@@ -13,7 +13,9 @@ export default ({bookmark: {width, height}}: Props) => {
   return (
     <React.Fragment>
       <Grid item xs={12}>
-        <Typography>Size: {width}x{height}</Typography>
+        <Typography>
+          Size: {width}x{height}
+        </Typography>
       </Grid>
     </React.Fragment>
   );
