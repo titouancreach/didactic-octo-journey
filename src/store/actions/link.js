@@ -65,7 +65,8 @@ export function fetchLink(url: UrlType): Function {
                 type: 'ADD_LINK',
                 payload: {
                   ...obj,
-                  id
+                  id,
+                  tags: []
                 }
               }),
             err => dispatch({type: 'LINK_NOT_FETCHED', payload: err})
