@@ -13,12 +13,14 @@ import Edit from 'material-ui-icons/Edit';
 import Delete from 'material-ui-icons/Delete';
 import IconButton from 'material-ui/IconButton';
 import Menu, {MenuItem} from 'material-ui/Menu';
+import { withRouter } from 'react-router-dom'
 
 import {deleteLink} from '../../store/actions/link';
 
 type Props = {
-  bookmark: Bookmark,
-  delete: () => any
+  bookmark: Bookmark & {id: string},
+  delete: () => any,
+  history: any
 };
 
 type State = {
@@ -41,6 +43,10 @@ class BookmarkItem extends React.Component<Props, State> {
     this.setState({anchor: null});
   };
 
+  handleEdit = () => {
+    this.props.history.push(`/bookmark/${this.props.bookmark.id}`)
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -58,7 +64,7 @@ class BookmarkItem extends React.Component<Props, State> {
           open={Boolean(this.state.anchor)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>
+          <MenuItem onClick={this.handleEdit}>
             <ListItemIcon>
               <Edit />
             </ListItemIcon>
@@ -84,4 +90,4 @@ const mapDispatch = (dispatch, {bookmarkId}) => ({
   delete: () => dispatch(deleteLink(bookmarkId))
 });
 
-export default connect(mapState, mapDispatch)(BookmarkItem);
+export default withRouter(connect(mapState, mapDispatch)(BookmarkItem));
