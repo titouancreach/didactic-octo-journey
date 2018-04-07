@@ -6,47 +6,73 @@ import Chip from 'material-ui/Chip';
 import type {Bookmark} from '../../type';
 import Grid from 'material-ui/Grid';
 import GenericInput from '../GenericInput';
+import ChipInput from 'material-ui-chip-input';
+import {withRouter} from 'react-router-dom';
+import Button from 'material-ui/Button';
+
+import {addTag, removeTag} from '../../store/actions/link';
 
 type Props = {
-  bookmark: Bookmark
+  bookmark: Bookmark,
+  addTag: Function,
+  removeTag: Function,
+  history: any
 };
 
-type State = {
-  input: string
-};
-
-class BookmarkEdit extends React.Component<Props, State> {
-  state = {
-    input: ''
+// High order function to avoid duplicate
+const enhanceAddTag = tags => {
+  return (onSuccess, onError) => {
+    return tag => {
+      if (!tags.includes(tag)) {
+        return onSuccess(tag);
+      }
+      return onError(tag);
+    };
   };
+};
 
-  render() {
-    const {bookmark} = this.props;
-    return (
-      <React.Fragment>
-        <Grid item xs={12}>
-          {' '}
-          Bookmark edit here{' '}
-        </Grid>
-        <GenericInput
-          buttonDisabled={false}
-          error={null}
-          title="tag name"
-          onClick={() => {}}
+function BookmarkEdit({bookmark, addTag, removeTag, history}: Props) {
+  const enhancedAddTag = enhanceAddTag(bookmark.tags)(
+    tag => {
+      addTag(tag);
+      return true;
+    },
+    tag => {
+      return false;
+    }
+  );
+
+  return (
+    <React.Fragment>
+      <Grid item xs={12}>
+        Edit Bookmark
+      </Grid>
+      <Grid item xs={12}>
+        <ChipInput
+          label="tags"
+          fullWidth
+          value={bookmark.tags}
+          onAdd={addTag}
+          onDelete={removeTag}
+          helperText="Type something and press 'enter' to add new keywords"
         />
-        <Grid item xs={12}>
-          {bookmark.tags.length ? (
-            bookmark.tags.map(tagName => {
-              // our tagNames are guaranteed to be unique :)
-              return <Chip key={tagName} label={tagName} onDelete={() => {}} />;
-            })
-          ) : (
-            <div> No tags </div> // TODO: create component here
-          )}
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container justify="flex-end">
+          <Grid item xs={2}>
+            <Button
+              size="medium"
+              color="secondary"
+              variant="raised"
+              onClick={() => history.push('/')}
+            >
+              Back to home
+            </Button>
+          </Grid>
         </Grid>
-      </React.Fragment>
-    );
-  }
+      </Grid>
+    </React.Fragment>
+  );
 }
 
 const mapState = (state, {bookmarkId}) => {
@@ -55,4 +81,11 @@ const mapState = (state, {bookmarkId}) => {
   };
 };
 
-export default connect(mapState)(BookmarkEdit);
+const mapDispatch = (dispatch, {bookmarkId}) => {
+  return {
+    addTag: tag => dispatch(addTag(bookmarkId, tag)),
+    removeTag: tag => dispatch(removeTag(bookmarkId, tag))
+  };
+};
+
+export default withRouter(connect(mapState, mapDispatch)(BookmarkEdit));

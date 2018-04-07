@@ -18,10 +18,14 @@ type Props = {
   error: ?string
 };
 
-
 const LinkInput = ({isLoading, error, addLink}: Props) => (
-  <GenericInput buttonDisabled={isLoading} error={error} onClick={addLink} title="url" />
-)
+  <GenericInput
+    buttonDisabled={isLoading}
+    error={error}
+    onClick={addLink}
+    title="url"
+  />
+);
 
 const mapDispatch = dispatch => ({
   addLink: url => dispatch(fetchLink(url))

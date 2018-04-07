@@ -32,12 +32,36 @@ export type DeleteLinkAction = {|
   type: string
 |};
 
-export type Actions = AddLinkAction | FetchLinkAction | LinkNotFetchedAction | DeleteLinkAction;
+export type AddTagAction = {|
+  payload: {
+    id: string,
+    tag: string 
+  },
+  type: string
+|}
+
+export type RemoveTagAction = AddTagAction;
+
+export type Actions = 
+ | AddLinkAction 
+ | FetchLinkAction 
+ | LinkNotFetchedAction 
+ | DeleteLinkAction 
+ | AddTagAction 
+ | RemoveTagAction;
 
 
 export function deleteLink(id: string) {
   return {type: 'DELETE_LINK', payload: {id}}
 };
+
+export function addTag(id: string, tag: string) {
+  return {type: 'ADD_TAG', payload: {id, tag}}
+};
+
+export function removeTag(id: string, tag: string) {
+  return {type: 'REMOVE_TAG', payload: {id, tag}}
+}
 
 export function fetchLink(url: UrlType): Function {
   return (dispatch, getState) => {

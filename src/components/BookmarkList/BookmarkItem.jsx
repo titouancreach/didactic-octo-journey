@@ -13,7 +13,7 @@ import Edit from 'material-ui-icons/Edit';
 import Delete from 'material-ui-icons/Delete';
 import IconButton from 'material-ui/IconButton';
 import Menu, {MenuItem} from 'material-ui/Menu';
-import { withRouter } from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
 
 import {deleteLink} from '../../store/actions/link';
 
@@ -44,8 +44,8 @@ class BookmarkItem extends React.Component<Props, State> {
   };
 
   handleEdit = () => {
-    this.props.history.push(`/bookmark/${this.props.bookmark.id}`)
-  }
+    this.props.history.push(`/bookmark/${this.props.bookmark.id}`);
+  };
 
   render() {
     return (
@@ -70,7 +70,12 @@ class BookmarkItem extends React.Component<Props, State> {
             </ListItemIcon>
             <ListItemText inset primary="Edit" />
           </MenuItem>
-          <MenuItem onClick={() => {this.props.delete(); this.handleClose() }}>
+          <MenuItem
+            onClick={() => {
+              this.props.delete();
+              this.handleClose();
+            }}
+          >
             <ListItemIcon>
               <Delete />
             </ListItemIcon>

@@ -71,5 +71,4 @@ class GenericInput extends React.Component<Props, State> {
   }
 }
 
-
 export default GenericInput;

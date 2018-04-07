@@ -92,3 +92,9 @@ export function removeById(obj: Object, predicate: any => boolean): Object {
     .filter(([id]) => predicate(id))
     .reduce((acc, [id, item]) => ({...acc, [id]: item}), {});
 }
+
+export function mapObject(obj: Object, predicate: (string, any) => Object) {
+  return Object.entries(obj)
+    .map(([k, v]) => [k, predicate(k, v)])
+    .reduce((acc, [id, item]) => ({...acc, [id]: item}), {});
+}
