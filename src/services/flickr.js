@@ -122,12 +122,12 @@ export const get = url => {
           .join(rawSizes, (info, size) => [info, size])
           .flatMap(([info, size]) =>
             Success(url)
-              .join(infoToBookmarkInfo(info), (url, info) => ({url, info}))
+              .join(infoToBookmarkInfo(info), (url, info) => ({url, ...info}))
               .join(sizeToBookmarkSize(size), (acc, size) => ({
                 ...acc,
                 ...size
               }))
-          );  
+          );
       }
     );
   });

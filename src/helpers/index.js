@@ -2,7 +2,7 @@
 
 export function identity<T>(x: T) {
   return x;
-};
+}
 
 // credit to this guys: https://gist.github.com/gordonbrander/2230317
 // it should be safe enough for this app
@@ -11,7 +11,6 @@ export const getUniqId = () =>
   Math.random()
     .toString(36)
     .substr(2, 9);
-
 
 export type Either<T, U> = SuccessType<T, U> | ErrorType<T, U>;
 
@@ -23,17 +22,17 @@ export type SuccessType<T, U> = {
   getValue: () => T,
   fold: ((T) => any, (U) => any) => any,
   join: (Either<T, U>, Function) => Either<T, U>
-}
+};
 
 export type ErrorType<T, U> = {
   map: (<X>(T) => X) => ErrorType<T, U>,
-  flatMap: (Function) => ErrorType<T, U>,
+  flatMap: Function => ErrorType<T, U>,
   isSuccess: () => boolean,
   isError: () => boolean,
   getError: () => U,
   fold: ((T) => any, (U) => any) => any,
   join: (Either<T, U>, Function) => ErrorType<T, U>
-}
+};
 
 // Simple Error/Success monad
 export const Success = <T, U>(value: T): SuccessType<T, U> => {

@@ -7,7 +7,6 @@ import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 
-
 import {fetchLink} from '../../store/actions/link';
 
 import {connect} from 'react-redux';
@@ -37,7 +36,7 @@ class LinkInput extends React.Component<Props, State> {
     const {addLink} = this.props;
 
     return (
-      <React.Fragment>  
+      <React.Fragment>
         <Grid item xs={11}>
           <TextField
             error={!!this.props.error}
@@ -62,9 +61,10 @@ class LinkInput extends React.Component<Props, State> {
           </Button>
         </Grid>
         {this.props.error ? (
-        <Grid item xs={12}>
-          <div>{this.props.error}</div>
-        </Grid>) : null}
+          <Grid item xs={12}>
+            <div>{this.props.error}</div>
+          </Grid>
+        ) : null}
       </React.Fragment>
     );
   }

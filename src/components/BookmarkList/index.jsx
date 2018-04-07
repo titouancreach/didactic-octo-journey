@@ -14,7 +14,6 @@ import Paper from 'material-ui/Paper';
 import {connect} from 'react-redux';
 import BookmarkItem from './BookmarkItem';
 
-
 type Props = {
   bookmarkIds: string[]
 };

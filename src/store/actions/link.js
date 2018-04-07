@@ -35,7 +35,7 @@ export function fetchLink(url: UrlType): Function {
       prom =>
         prom.then(result =>
           result.fold(
-            obj =>
+            obj => 
               dispatch({
                 type: 'ADD_LINK',
                 payload: {
