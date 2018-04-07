@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import TextField from 'material-ui/TextField';
 import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
@@ -15,7 +15,7 @@ import {connect} from 'react-redux';
 type Props = {
   addLink: Function,
   isLoading: boolean,
-  error: string[] | String | null
+  error: ?String
 };
 
 type State = {
@@ -63,8 +63,7 @@ class LinkInput extends React.Component<Props, State> {
         </Grid>
         {this.props.error ? (
         <Grid item xs={12}>
-          {/* TODO: wrap in a function and explain why we access [0] */}
-            <div>{Array.isArray(this.props.error) ? this.props.error[0] : this.props.error}</div>
+          <div>{this.props.error}</div>
         </Grid>) : null}
       </React.Fragment>
     );
