@@ -36,7 +36,7 @@ const fetchInfo = (apiKey, photoId) =>
       }
     })
     .then(resp => Success(resp.data))
-    .catch(() => Error('Network error'));
+    .catch(() => Error('Network error, make sure your link is valid'));
 
 const firstMatch = matches => {
   if (!matches || matches.length < 2) {
