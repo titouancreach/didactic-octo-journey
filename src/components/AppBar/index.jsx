@@ -5,6 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
+import {withRouter} from 'react-router-dom';
 
 const styles = {
   root: {
@@ -14,15 +15,16 @@ const styles = {
 
 type Props = {
   classes: typeof styles,
-  title: string
+  title: string,
+  history: any
 };
 
-function TopBar({classes, title}: Props) {
+function TopBar({classes, title, history}: Props) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="title" color="inherit">
+          <Typography variant="title" color="inherit" onClick={() => history.push('/')}>
             {title}
           </Typography>
         </Toolbar>
@@ -31,4 +33,4 @@ function TopBar({classes, title}: Props) {
   );
 }
 
-export default withStyles(styles)(TopBar);
+export default withRouter(withStyles(styles)(TopBar));
