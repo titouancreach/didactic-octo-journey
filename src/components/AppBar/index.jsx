@@ -24,7 +24,11 @@ function TopBar({classes, title, history}: Props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="title" color="inherit" onClick={() => history.push('/')}>
+          <Typography
+            variant="title"
+            color="inherit"
+            onClick={() => history.push('/')}
+          >
             {title}
           </Typography>
         </Toolbar>

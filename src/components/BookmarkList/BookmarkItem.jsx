@@ -17,6 +17,11 @@ import {withRouter} from 'react-router-dom';
 
 import {deleteLink} from '../../store/actions/link';
 
+const unixTimestampToString = timestamp => {
+  const d = new Date(timestamp * 1000);
+  return [d.getDate(), d.getMonth(), d.getFullYear()].join('/');
+};
+
 type Props = {
   bookmark: Bookmark & {id: string},
   delete: () => any,
@@ -28,7 +33,9 @@ type State = {
 };
 
 const makeSecondaryLine = ({title, authorName, addedDate}: Bookmark) =>
-  `title: ${title} / author: ${authorName} / added: ${addedDate}`;
+  `title: ${title} / author: ${authorName} / added: ${unixTimestampToString(
+    addedDate
+  )}`;
 
 class BookmarkItem extends React.Component<Props, State> {
   state = {
