@@ -26,6 +26,15 @@ const urlToId = url => {
   });
 };
 
+// convert this format: 2018-04-04 08:03:41 to timestamp
+// We will assume that vimeo send good date and doesn't change their format
+// between requests...
+const getTimeStamp = vimeoDate => {
+  const d = new Date(vimeoDate)
+  return d.getTime() / 1e3;
+}
+
+
 export const get = (url: string) => {
   return urlToId(url).map(id =>
     fetchInfo(id).then(rawInfo =>
@@ -52,7 +61,7 @@ export const get = (url: string) => {
               height,
               authorName,
               title,
-              addedDate,
+              addedDate: getTimeStamp(addedDate),
               url,
               type: 'vimeo'
             });
