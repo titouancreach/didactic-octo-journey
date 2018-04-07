@@ -9,6 +9,8 @@ import GenericInput from '../GenericInput';
 import ChipInput from 'material-ui-chip-input';
 import {withRouter} from 'react-router-dom';
 import Button from 'material-ui/Button';
+import BookmarkInfo from './BookmarkInfo';
+import Typography from 'material-ui/Typography';
 
 import {addTag, removeTag} from '../../store/actions/link';
 
@@ -32,21 +34,13 @@ const enhanceAddTag = tags => {
 };
 
 function BookmarkEdit({bookmark, addTag, removeTag, history}: Props) {
-  const enhancedAddTag = enhanceAddTag(bookmark.tags)(
-    tag => {
-      addTag(tag);
-      return true;
-    },
-    tag => {
-      return false;
-    }
-  );
 
   return (
     <React.Fragment>
       <Grid item xs={12}>
-        Edit Bookmark
+      <Typography variant="display2">Edit</Typography>
       </Grid>
+      <BookmarkInfo bookmark={bookmark} />
       <Grid item xs={12}>
         <ChipInput
           label="tags"
