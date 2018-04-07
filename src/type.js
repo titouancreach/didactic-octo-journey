@@ -15,3 +15,9 @@ export type FlickrBookmark = Bookmark & {
   width: string,
   height: string
 }
+
+export type VimeoBookmark = Bookmark & {
+  width: string,
+  height: string,
+  duration: string
+}
