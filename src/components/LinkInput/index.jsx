@@ -8,67 +8,20 @@ import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 
 import {fetchLink} from '../../store/actions/link';
+import GenericInput from '../../components/GenericInput/index';
 
 import {connect} from 'react-redux';
 
 type Props = {
   addLink: Function,
   isLoading: boolean,
-  error: ?String
+  error: ?string
 };
 
-type State = {
-  input: string
-};
 
-class LinkInput extends React.Component<Props, State> {
-  state = {
-    input: ''
-  };
-
-  handleChange = event => {
-    this.setState({
-      input: event.target.value
-    });
-  };
-
-  render() {
-    const {addLink} = this.props;
-
-    return (
-      <React.Fragment>
-        <Grid item xs={11}>
-          <TextField
-            error={!!this.props.error}
-            id="link"
-            label="url"
-            margin="none"
-            fullWidth
-            value={this.state.input}
-            onChange={this.handleChange}
-          />
-        </Grid>
-        <Grid item xs={1}>
-          <Button
-            disabled={this.props.isLoading}
-            variant="fab"
-            mini
-            color="secondary"
-            aria-label="add"
-            onClick={() => addLink(this.state.input)}
-          >
-            <AddIcon />
-          </Button>
-        </Grid>
-        {this.props.error ? (
-          <Grid item xs={12}>
-            <div>{this.props.error}</div>
-          </Grid>
-        ) : null}
-      </React.Fragment>
-    );
-  }
-}
+const LinkInput = ({isLoading, error, addLink}: Props) => (
+  <GenericInput buttonDisabled={isLoading} error={error} onClick={addLink} title="url" />
+)
 
 const mapDispatch = dispatch => ({
   addLink: url => dispatch(fetchLink(url))
