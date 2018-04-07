@@ -21,7 +21,7 @@ it('Info should be retrieve', done => {
         .then(console.log)
         .then(done),
     err => {
-      console.log(err);
+      console.error(err);
       done();
     }
   );
@@ -86,29 +86,25 @@ it('Monad map', () => {
   ).toEqual(true);
 });
 
-it('Monad concat', () => {
+it('Monad join', () => {
   expect(
     Success(3)
-      .concat(Success(2))
-      .map(([x, y]) => x + y)
+      .join(Success(2), (x, y) => x + y)
       .getValue()
   ).toBe(5);
   expect(
     Error(1)
-      .concat(Error(2))
-      .map(([x, y]) => x + y)
+      .join(Error(2), (x, y) => x + y)
       .getError()
-  ).toEqual([1, 2]);
+  ).toEqual(1);
   expect(
     Error(1)
-      .concat(Success(3))
-      .map(([x, y]) => x + y)
+      .join(Success(3), (x, y) => x + y)
       .getError()
   ).toEqual(Error(1).getError());
   expect(
     Success(1)
-      .concat(Error(3))
-      .map(([x, y]) => x + y)
+      .join(Error(3), (x, y) => x + y)
       .getError()
   ).toEqual(Error(3).getError());
 });

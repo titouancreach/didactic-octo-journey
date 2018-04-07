@@ -31,25 +31,8 @@ export const Success = value => {
     fold(f /*, g*/) {
       return f(value);
     },
-    // if we concat 2 success, we return Success([a, b]) else we return the Error(b)
-    // I'm not very fan of polymorphism with the Array here. But I'm not very fan
-    // of destructuring an array every time for map and flatMap...
-
-    // TODO: I prefer destructuring than dealing with different type of variable
-    // I will add merge (or join) that take another monad, and return a monad
-    // Success(3).flatMerge(Success(2), (x, y) => Success(x + y) === Success(5)
-    // and
-    // Success(3).merge(Success(2), (x, y) => x + y) === Success(5)
-    concat(m) {
-      return m.fold(
-        x => {
-          if (Array.isArray(value)) {
-            return Success(value.concat(x));
-          }
-          return Success([value, x]);
-        },
-        err => Error(err)
-      );
+    join(m, f) {
+      return m.fold(x => Success(f(value, x)), err => Error(err));
     }
   };
 };
@@ -74,17 +57,8 @@ export const Error = error => {
     fold(f, g) {
       return g(error);
     },
-    // if we concat 2 Error, we return Error([a, b]) else, we return Error(a)
-    concat(m) {
-      return m.fold(
-        () => Error(error),
-        err => {
-          if (Array.isArray(error)) {
-            return Error(error.concat(err));
-          }
-          return Error([error, err]);
-        }
-      );
+    join() {
+      return Error(error);
     }
   };
 };
