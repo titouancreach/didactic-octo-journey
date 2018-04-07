@@ -16,23 +16,23 @@ export const getUniqId = () =>
 export type Either<T, U> = SuccessType<T, U> | ErrorType<T, U>;
 
 export type SuccessType<T, U> = {
-  map: (Function) => Either<T, U>,
+  map: (Function) => SuccessType<T, U>,
   flatMap: (Function) => Either<T, U>,
   isSuccess: () => boolean,
   isError: () => boolean,
   getValue: () => T,
-  fold: (Function, Function) => Either<T, U>,
+  fold: ((T) => any, (U) => any) => any,
   join: (Either<T, U>, Function) => Either<T, U>
 }
 
 export type ErrorType<T, U> = {
-  map: (Function) => Either<T, U>,
-  flatMap: (Function) => Either<T, U>,
+  map: (Function) => ErrorType<T, U>,
+  flatMap: (Function) => ErrorType<T, U>,
   isSuccess: () => boolean,
   isError: () => boolean,
   getError: () => U,
-  fold: (Function, Function) => Either<T, U>,
-  join: (Either<T, U>, Function) => Either<T, U>
+  fold: ((T) => any, (U) => any) => any,
+  join: (Either<T, U>, Function) => ErrorType<T, U>
 }
 
 // Simple Error/Success monad
