@@ -1,6 +1,8 @@
 // @flow
 
-export const identity = x => x;
+export function identity<T>(x: T) {
+  return x;
+};
 
 // credit to this guys: https://gist.github.com/gordonbrander/2230317
 // it should be safe enough for this app
@@ -10,8 +12,31 @@ export const getUniqId = () =>
     .toString(36)
     .substr(2, 9);
 
+
+export type Either<T, U> = SuccessType<T, U> | ErrorType<T, U>;
+
+export type SuccessType<T, U> = {
+  map: (Function) => Either<T, U>,
+  flatMap: (Function) => Either<T, U>,
+  isSuccess: () => boolean,
+  isError: () => boolean,
+  getValue: () => T,
+  fold: (Function, Function) => Either<T, U>,
+  join: (Either<T, U>, Function) => Either<T, U>
+}
+
+export type ErrorType<T, U> = {
+  map: (Function) => Either<T, U>,
+  flatMap: (Function) => Either<T, U>,
+  isSuccess: () => boolean,
+  isError: () => boolean,
+  getError: () => U,
+  fold: (Function, Function) => Either<T, U>,
+  join: (Either<T, U>, Function) => Either<T, U>
+}
+
 // Simple Error/Success monad
-export const Success = value => {
+export const Success = <T, U>(value: T): SuccessType<T, U> => {
   return {
     map(f) {
       return Success(f(value));
@@ -31,13 +56,13 @@ export const Success = value => {
     fold(f /*, g*/) {
       return f(value);
     },
-    join(m, f) {
+    join(m: Either<T, any>, f: (T, any) => any) {
       return m.fold(x => Success(f(value, x)), err => Error(err));
     }
   };
 };
 
-export const Error = error => {
+export const Error = <T, U>(error: U): Error<T, U> => {
   return {
     map() {
       return Error(error);
@@ -62,5 +87,3 @@ export const Error = error => {
     }
   };
 };
-
-export type Either = Error | Success;

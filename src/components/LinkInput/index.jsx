@@ -37,7 +37,7 @@ class LinkInput extends React.Component<Props, State> {
     const {addLink} = this.props;
 
     return (
-      <React.Fragment>
+      <React.Fragment>  
         <Grid item xs={11}>
           <TextField
             error={!!this.props.error}
