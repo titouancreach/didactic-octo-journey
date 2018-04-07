@@ -25,7 +25,19 @@ export type LinkNotFetchedAction = {|
   type: string
 |};
 
-export type Actions = AddLinkAction | FetchLinkAction | LinkNotFetchedAction;
+export type DeleteLinkAction = {|
+  payload: {
+    id: string
+  },
+  type: string
+|};
+
+export type Actions = AddLinkAction | FetchLinkAction | LinkNotFetchedAction | DeleteLinkAction;
+
+
+export function deleteLink(id: string) {
+  return {type: 'DELETE_LINK', payload: {id}}
+};
 
 export function fetchLink(url: UrlType): Function {
   return (dispatch, getState) => {

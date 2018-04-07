@@ -86,3 +86,9 @@ export const Error = <T, U>(error: U): Error<T, U> => {
     }
   };
 };
+
+export function removeById(obj: Object, predicate: any => boolean): Object {
+  return Object.entries(obj)
+    .filter(([id]) => predicate(id))
+    .reduce((acc, [id, item]) => ({...acc, [id]: item}), {});
+}

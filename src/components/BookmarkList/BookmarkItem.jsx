@@ -14,8 +14,11 @@ import Delete from 'material-ui-icons/Delete';
 import IconButton from 'material-ui/IconButton';
 import Menu, {MenuItem} from 'material-ui/Menu';
 
+import {deleteLink} from '../../store/actions/link';
+
 type Props = {
-  bookmark: Bookmark
+  bookmark: Bookmark,
+  delete: () => any
 };
 
 type State = {
@@ -61,7 +64,7 @@ class BookmarkItem extends React.Component<Props, State> {
             </ListItemIcon>
             <ListItemText inset primary="Edit" />
           </MenuItem>
-          <MenuItem onClick={this.handleClose}>
+          <MenuItem onClick={() => {this.props.delete(); this.handleClose() }}>
             <ListItemIcon>
               <Delete />
             </ListItemIcon>
@@ -77,4 +80,8 @@ const mapState = (state, {bookmarkId}) => ({
   bookmark: state.link.byId[bookmarkId]
 });
 
-export default connect(mapState)(BookmarkItem);
+const mapDispatch = (dispatch, {bookmarkId}) => ({
+  delete: () => dispatch(deleteLink(bookmarkId))
+});
+
+export default connect(mapState, mapDispatch)(BookmarkItem);
