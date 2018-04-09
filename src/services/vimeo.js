@@ -12,7 +12,11 @@ const fetchInfo = videoId => {
   return axios
     .get(`http://vimeo.com/api/v2/video/${videoId}.json`)
     .then(resp => Success(resp.data))
-    .catch(error => Error('Network error, the request as failed, make sure your link is valid'));
+    .catch(error =>
+      Error(
+        'Network error, the request as failed, make sure your link is valid'
+      )
+    );
 };
 
 const urlToId = url => {
@@ -30,10 +34,9 @@ const urlToId = url => {
 // We will assume that vimeo send good date and doesn't change their format
 // between requests...
 const getTimeStamp = vimeoDate => {
-  const d = new Date(vimeoDate)
+  const d = new Date(vimeoDate);
   return d.getTime() / 1e3;
-}
-
+};
 
 export const get = (url: string) => {
   return urlToId(url).map(id =>

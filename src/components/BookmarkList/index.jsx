@@ -20,14 +20,13 @@ type Props = {
 type State = {
   pageNbr: number,
   rowPerPage: number
-}
+};
 
 const getPaginatedResults = (pageNbr, rowPerPage, items) => {
   return items.slice(rowPerPage * pageNbr, rowPerPage * pageNbr + rowPerPage);
 };
 
 class BookmarkList extends React.Component<Props, State> {
-
   state = {
     pageNbr: 0,
     rowPerPage: 5
@@ -40,7 +39,11 @@ class BookmarkList extends React.Component<Props, State> {
         <Paper>
           <Table>
             <TableBody>
-              {getPaginatedResults(this.state.pageNbr, this.state.rowPerPage, bookmarkIds).map(bookmarkId => (
+              {getPaginatedResults(
+                this.state.pageNbr,
+                this.state.rowPerPage,
+                bookmarkIds
+              ).map(bookmarkId => (
                 <TableRow key={bookmarkId}>
                   <TableCell>
                     <ListItem>
@@ -57,7 +60,9 @@ class BookmarkList extends React.Component<Props, State> {
                   page={this.state.pageNbr}
                   onChangePage={(e, n) => this.setState({pageNbr: n})}
                   count={bookmarkIds.length}
-                  onChangeRowsPerPage={e => this.setState({rowPerPage: e.target.value})}
+                  onChangeRowsPerPage={e =>
+                    this.setState({rowPerPage: e.target.value})
+                  }
                   rowsPerPage={this.state.rowPerPage}
                   backIconButtonProps={{
                     'aria-label': 'Previous Page'

@@ -6,7 +6,6 @@ import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 
-
 type Props = {
   onClick: Function,
   buttonDisabled: boolean,

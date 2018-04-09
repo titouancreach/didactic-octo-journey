@@ -12,16 +12,15 @@ type Props = {
 export default ({bookmark}: Props) => {
   switch (bookmark.type) {
     case 'flickr': {
-      return (<FlickrInfo bookmark={((bookmark: any): FlickrBookmark)} />);
+      return <FlickrInfo bookmark={((bookmark: any): FlickrBookmark)} />;
     }
 
     case 'vimeo': {
-      return (<VimeoInfo bookmark={((bookmark: any): VimeoBookmark)} />);
+      return <VimeoInfo bookmark={((bookmark: any): VimeoBookmark)} />;
     }
 
     default: {
       throw new Error('Should never happen!');
     }
   }
-  
 };
