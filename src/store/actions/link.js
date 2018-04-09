@@ -85,8 +85,9 @@ export function fetchLink(url: UrlType): Function {
     const id = getUniqId();
     dispatch({type: 'FETCH_LINK'});
 
-    getFetcher(url).map(get =>
-      get(url).fold(
+    getFetcher(url)
+      .flatMap(get => get(url))
+      .fold(
         prom =>
           prom.then(result =>
             result.fold(
@@ -103,7 +104,6 @@ export function fetchLink(url: UrlType): Function {
             )
           ),
         err => dispatch({type: 'LINK_NOT_FETCHED', payload: err})
-      )
-    ).fold(() => {}, err => dispatch({type: 'LINK_NOT_FETCHED', payload: err}))
-  }
+      );
+  };
 }
