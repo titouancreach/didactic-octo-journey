@@ -1,4 +1,4 @@
-import {Error, Success, removeById} from './index';
+import {Error, Success, removeById, mapObject, identity} from './index';
 
 it('Monad flatMap', () => {
   expect(
@@ -89,4 +89,17 @@ it('Remove by Id', () => {
     c: 3
   };
   expect(removeById(x, id => id !== 'b')).toEqual({a: 1, c: 3});
+});
+
+it('Map object', () => {
+  const x = {
+    a: 1,
+    b: 2,
+    c: 3
+  };
+  expect(mapObject(x, (k, v) => v + 1)).toEqual({a: 2, b: 3, c: 4});
+});
+
+it('identity', () => {
+  expect(identity(3)).toBe(3);
 });
