@@ -1,11 +1,10 @@
 // @flow
 import React from 'react';
-import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
+import {ListItem} from 'material-ui/List';
 import Grid from 'material-ui/Grid';
 import Table, {
   TableBody,
   TableCell,
-  TableHead,
   TableRow,
   TableFooter,
   TablePagination

@@ -44,6 +44,8 @@ export default function(state: State = initialState, action: Action): State {
         error: 'Link is already there'
       }
     }
+    default: {
+      return state;
+    }
   }
-  return state;
 }

@@ -1,7 +1,6 @@
 // @flow
 
 import {getUniqId} from '../../helpers';
-import {get as flickrGet} from '../../services/flickr';
 import {getFetcher} from '../../services';
 import type {Bookmark} from '../../type';
 

@@ -2,10 +2,8 @@
 
 import * as React from 'react';
 import {connect} from 'react-redux';
-import Chip from 'material-ui/Chip';
 import type {Bookmark} from '../../type';
 import Grid from 'material-ui/Grid';
-import GenericInput from '../GenericInput';
 import ChipInput from 'material-ui-chip-input';
 import {withRouter} from 'react-router-dom';
 import Button from 'material-ui/Button';
@@ -19,18 +17,6 @@ type Props = {
   addTag: Function,
   removeTag: Function,
   history: any
-};
-
-// High order function to avoid duplicate
-const enhanceAddTag = tags => {
-  return (onSuccess, onError) => {
-    return tag => {
-      if (!tags.includes(tag)) {
-        return onSuccess(tag);
-      }
-      return onError(tag);
-    };
-  };
 };
 
 function BookmarkEdit({bookmark, addTag, removeTag, history}: Props) {
