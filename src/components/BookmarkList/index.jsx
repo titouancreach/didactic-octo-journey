@@ -18,43 +18,62 @@ type Props = {
   bookmarkIds: string[]
 };
 
-function BookmarkList({bookmarkIds}: Props) {
-  return (
-    <Grid item xs={12}>
-      <Paper>
-        <Table>
-          <TableBody>
-            {bookmarkIds.map(bookmarkId => (
-              <TableRow key={bookmarkId}>
-                <TableCell>
-                  <ListItem>
-                    <BookmarkItem bookmarkId={bookmarkId} />
-                  </ListItem>
-                </TableCell>
+type State = {
+  pageNbr: number,
+  rowPerPage: number
+}
+
+const getPaginatedResults = (pageNbr, rowPerPage, items) => {
+  return items.slice(rowPerPage * pageNbr, rowPerPage * pageNbr + rowPerPage);
+};
+
+class BookmarkList extends React.Component<Props, State> {
+
+  state = {
+    pageNbr: 0,
+    rowPerPage: 5
+  };
+
+  render() {
+    const {bookmarkIds} = this.props;
+    return (
+      <Grid item xs={12}>
+        <Paper>
+          <Table>
+            <TableBody>
+              {getPaginatedResults(this.state.pageNbr, this.state.rowPerPage, bookmarkIds).map(bookmarkId => (
+                <TableRow key={bookmarkId}>
+                  <TableCell>
+                    <ListItem>
+                      <BookmarkItem bookmarkId={bookmarkId} />
+                    </ListItem>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  colSpan={6}
+                  page={this.state.pageNbr}
+                  onChangePage={(e, n) => this.setState({pageNbr: n})}
+                  count={bookmarkIds.length}
+                  onChangeRowsPerPage={e => this.setState({rowPerPage: e.target.value})}
+                  rowsPerPage={this.state.rowPerPage}
+                  backIconButtonProps={{
+                    'aria-label': 'Previous Page'
+                  }}
+                  nextIconButtonProps={{
+                    'aria-label': 'Next Page'
+                  }}
+                />
               </TableRow>
-            ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                colSpan={6}
-                page={0}
-                onChangePage={() => {}}
-                count={bookmarkIds.length}
-                rowsPerPage={1}
-                backIconButtonProps={{
-                  'aria-label': 'Previous Page'
-                }}
-                nextIconButtonProps={{
-                  'aria-label': 'Next Page'
-                }}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </Paper>
-    </Grid>
-  );
+            </TableFooter>
+          </Table>
+        </Paper>
+      </Grid>
+    );
+  }
 }
 
 const mapState = state => {
