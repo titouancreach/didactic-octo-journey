@@ -55,10 +55,11 @@ class BookmarkItem extends React.Component<Props, State> {
   };
 
   render() {
+    const {url} = this.props.bookmark;
     return (
       <React.Fragment>
         <ListItemText
-          primary={this.props.bookmark.url}
+          primary={<a href={url}>{url}</a>}
           secondary={makeSecondaryLine(this.props.bookmark)}
         />
         <ListItemSecondaryAction>
