@@ -19,7 +19,7 @@ import {deleteLink} from '../../store/actions/link';
 
 const unixTimestampToString = timestamp => {
   const d = new Date(parseInt(timestamp, 10) * 1000);
-  return [d.getDate(), d.getMonth(), d.getFullYear()].join('/');
+  return [d.getDate(), d.getMonth() + 1, d.getFullYear()].join('/');
 };
 
 type Props = {
